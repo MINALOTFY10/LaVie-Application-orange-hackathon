@@ -151,7 +151,7 @@ class AppCubit extends Cubit<AppState> {
 
   void createDatabase() {
     openDatabase(
-      'todo101.db',
+      'todo1012.db',
       version: 1,
       onCreate: (database, version) {
         print('database created');

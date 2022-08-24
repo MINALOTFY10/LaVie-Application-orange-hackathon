@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             if (state is LoginSuccessState) {
              //SnackbarMessage(context, "Logged in Successfully",true);
              final prefs = await SharedPreferences.getInstance();
-             await prefs.setString("ltoken", LoginCubit.get(context).data.accessToken);
+             await prefs.setString("loginToken", LoginCubit.get(context).data.accessToken);
              await prefs.setString("firstName", cubit.userData.firstName);
              await prefs.setString("lastName", cubit.userData.lastName);
              await prefs.setString("imageUrl", cubit.userData.imageUrl);
