@@ -42,7 +42,7 @@ class DioHelper {
         options: Options(
             headers: {
               "Content-Type": "application/json",
-              "authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzVlNWIwZC0wZDE5LTRmZTUtYjEwZi01M2ViNDEyMDdiMjIiLCJpYXQiOjE2NjEwODE2MDcsImV4cCI6MTY2MTI1NDQwN30.NoHunH8z4tDFRmVvY_EAdQbMO4ujRdhwiEIOmird40Y",
+              "authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzVlNWIwZC0wZDE5LTRmZTUtYjEwZi01M2ViNDEyMDdiMjIiLCJpYXQiOjE2NjEyNTUyNDEsImV4cCI6MTY2MTQyODA0MX0.wG7SKKyplZmqdLfpnswmNey9Dmf4LBDLhu49cyFmoB4",
             }
         ));
   }

@@ -17,7 +17,7 @@ class SingleBlogScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
 
-        create: (BuildContext context) => BlogCubit(),
+        create: (BuildContext context) => BlogCubit()..getBlogData(),
     child: BlocConsumer<BlogCubit, BlogState>(
         listener: (context, state) {},
         builder: (context, state) {

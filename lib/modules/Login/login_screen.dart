@@ -68,21 +68,16 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (BuildContext context) => LoginCubit(),
-        child: BlocConsumer<LoginCubit, LoginState>(
+    return BlocConsumer<LoginCubit, LoginState>(
           listener: (BuildContext context, LoginState state) {
             if (state is LoginSuccessState) {
              SnackbarMessage(context, "Logged in Successfully",true);
-             // Fluttertoast.showToast(
-             //     msg: "Logged in Successfully",
-             //     toastLength: Toast.LENGTH_LONG,
-             //     gravity: ToastGravity.BOTTOM,
-             //     timeInSecForIosWeb: 3,
-             //     backgroundColor: Colors.orange,
-             //     textColor: Colors.white,
-             //     fontSize: 16.0
-             // );
+             Navigator.push (
+               context,
+               MaterialPageRoute (
+                 builder: (context) => AppLayout(),
+               ),
+             );
               // CacheHelper.saveData(
               //   key: 'token',
               //   value: LoginCubit.get(context).data.accessToken
@@ -99,15 +94,6 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
           }
             if(state is LoginErrorState){
             SnackbarMessage(context, "Incorrect Email or Password",false);
-            Fluttertoast.showToast(
-                msg: "Logged in Successfully",
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 3,
-                backgroundColor: Colors.orange,
-                textColor: Colors.white,
-                fontSize: 16.0
-            );
              // print('wrong');
             }
           },
@@ -305,6 +291,6 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
               ],
             ),
           ]));
-        }));
+        });
   }
 }

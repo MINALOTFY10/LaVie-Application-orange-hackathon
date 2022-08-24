@@ -10,8 +10,5 @@ class BlogLoadingState extends BlogState {}
 class BlogSuccessState extends BlogState {}
 
 class BlogErrorState extends BlogState {
-  final String error;
-
-  BlogErrorState(this.error);
 }
 

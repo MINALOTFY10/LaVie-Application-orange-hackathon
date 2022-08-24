@@ -12,7 +12,7 @@ class ForumScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => ForumCubit(),
+        create: (BuildContext context) => ForumCubit()..getForumsData(),
         child: BlocConsumer<ForumCubit, ForumState>(
             listener: (BuildContext context, ForumState state) {},
             builder: (BuildContext context, ForumState state) {
@@ -148,7 +148,7 @@ class ForumScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 10),
-                      cubit.bottomScreens[cubit.currentIndex],
+                      Expanded(child: cubit.Screens(context, cubit.currentIndex)),
                     ],
                   ));
             }));

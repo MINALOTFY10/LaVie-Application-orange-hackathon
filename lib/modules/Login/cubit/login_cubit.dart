@@ -14,6 +14,7 @@ class LoginCubit extends Cubit<LoginState> {
   bool wrongSignUp = false;
 
   late Data data;
+  late UserData userData;
 
   void signIn(String email, String password) {
     emit(LoginLoadingState());
@@ -24,16 +25,16 @@ class LoginCubit extends Cubit<LoginState> {
       data: {"password": password, "email": email},
     ).then((value) {
       //print(value.data);
-      print(value.data['data']['user']['email'].toString());
+      //print(value.data['data']['user']['email'].toString());
       print('==========================================');
       data = Data.fromJson(value.data['data']);
-
+      userData = UserData.fromJson(value.data['data']['user']);
       print('==========================================');
 
       emit(LoginSuccessState());
     }).catchError((error) {
-     // print(message);
-      //print(error.toString());
+     //print(message);
+      print(error.toString());
 
       //SnackbarMessage(context, "${error.response.data['message']}",false);
       emit(LoginErrorState(error.toString()));

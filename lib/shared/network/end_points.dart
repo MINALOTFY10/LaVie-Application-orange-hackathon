@@ -1,15 +1,11 @@
 const signIn = 'api/v1/auth/signup';
 
-const SEEDS = '/api/v1/seeds';
+const product = '/api/v1/products';
 
-const PRODUCT = '/api/v1/products';
+const plant = '/api/v1/plants';
 
-const GET_CATEGORIES = 'categories';
+const seed = '/api/v1/seeds';
 
-const FAVORITES = 'favorites';
+const tool = '/api/v1/tools';
 
-const PROFILE = 'profile';
-
-const UPDATE_PROFILE = 'update-profile';
-
-const SEARCH = 'products/search';
+const forum = '/api/v1/forums/me';

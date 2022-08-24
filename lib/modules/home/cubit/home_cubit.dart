@@ -3,9 +3,16 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planetapp/models/product_model.dart';
+import '../../../models/plant_model.dart';
+import '../../../models/seed_model.dart';
+import '../../../models/tool_model.dart';
 import '../../../shared/components.dart';
 import '../../../shared/network/end_points.dart';
 import '../../../shared/network/remote/dio_helper.dart';
+import '../builders/all_plant_builder.dart';
+import '../builders/all_product_builder.dart';
+import '../builders/all_seed_builder.dart';
+import '../builders/all_tool_builder.dart';
 
 part 'home_state.dart';
 
@@ -16,68 +23,119 @@ class HomeCubit extends Cubit<HomeState> {
 
   int currentIndex = 0;
 
-  List<ProductModel> product=[];
+  List<ProductModel> productList=[];
+  List<PlantModel> plantList=[];
+  List<SeedModel> seedList=[];
+  List<ToolModel> toolList=[];
 
   void getProductData() {
     emit(HomeLoadingState());
 
     DioHelper.getData(
-      url: PRODUCT,
+      url: product,
       query: {},
     ).then((value) {
-
       List<dynamic> list = value.data['data'];
 
-      //print(list[0]);
       for(int i=0;i<list.length;i++){
-        print("1");
-        product.add(ProductModel.fromJson(list[i]));
-        // print("2");
-        // print('==============================================================================');
-        print(product[i].plant.name);
-        // print('==============================================================================');
+        productList.add(ProductModel.fromJson(list[i]));
       }
-      print("seed lenght is: ");
-      print(product.length);
-
       emit(HomeSuccessState());
     }).catchError((error) {
       if(error is DioError){
         print(error.response);
       }else{
-
         print(error.toString());
       }
       emit(HomeErrorState());
     });
   }
 
+  void getPlantData() {
+    emit(HomeLoadingState());
 
+    DioHelper.getData(
+      url: plant,
+      query: {},
+    ).then((value) {
+      List<dynamic> list = value.data['data'];
 
+      for(int i=0;i<list.length;i++){
+        plantList.add(PlantModel.fromJson(list[i]));
+      }
+      emit(HomeSuccessState());
+    }).catchError((error) {
+      if(error is DioError){
+        print(error.response);
+      }else{
+        print(error.toString());
+      }
+      emit(HomeErrorState());
+    });
+  }
 
+  void getSeedData() {
+    emit(HomeLoadingState());
 
+    DioHelper.getData(
+      url: seed,
+      query: {},
+    ).then((value) {
+      List<dynamic> list = value.data['data'];
+      print(list[0]);
+      for(int i=0;i<list.length;i++){
+        seedList.add(SeedModel.fromJson(list[i]));
+      }
+      emit(HomeSuccessState());
+    }).catchError((error) {
+      if(error is DioError){
+        print(error.response);
+      }else{
+        print(error.toString());
+      }
+      emit(HomeErrorState());
+    });
+  }
 
+  void getToolData() {
+    emit(HomeLoadingState());
 
+    DioHelper.getData(
+      url: tool,
+      query: {},
+    ).then((value) {
+      List<dynamic> list = value.data['data'];
 
+      for(int i=0;i<list.length;i++){
+        toolList.add(ToolModel.fromJson(list[i]));
+      }
+      emit(HomeSuccessState());
+    }).catchError((error) {
+      if(error is DioError){
+        print(error.response);
+      }else{
+        print(error.toString());
+      }
+      emit(HomeErrorState());
+    });
+  }
 
-
-
-
-
-
+//=======================================================================================================
 
 Widget Screens (context,int index) {
   if(index == 0 ){
-    return allProductBuilder(list: [],context: context);
+    return allProductBuilder(list: productList,context: context);
   }
   else if(index == 1 ){
-     return Icon(Icons.account_box_sharp);
+    return allPlantBuilder(
+        list: plantList,
+        context: context);
   }
   else if(index == 2 ){
-    return allProductBuilder(list: product,context: context);
+    return allSeedBuilder(list: seedList, context: context);
   }
   else{
-    return Icon(Icons.add_call);
+    return allToolBuilder(list: toolList,context: context);
   }
 }
 
@@ -173,4 +231,7 @@ Widget Screens (context,int index) {
       return Colors.transparent;
     }
   }
+
+
+
 }

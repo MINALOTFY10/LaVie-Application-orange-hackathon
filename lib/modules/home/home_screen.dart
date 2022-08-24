@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planetapp/modules/cart/cart_screen.dart';
 
 import '../Login/login_screen.dart';
 import 'cubit/home_cubit.dart';
@@ -10,25 +11,23 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (BuildContext context) => HomeCubit()..getProductData(),
-        child: BlocConsumer<HomeCubit, HomeState>(
-        listener: (BuildContext context, HomeState state) {},
-    builder: (BuildContext context, HomeState state) {
-      HomeCubit cubit = HomeCubit.get(context);
-      return Scaffold(
-        body: Column(
-          children: [
-            const SizedBox(height: 35,),
-            Center(
-              child: Image.asset("assets/Group 1000003302.png"),
-            ),
-            const SizedBox(height: 30,),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: Row(
-                children: [
-                  Expanded(
+    return BlocConsumer<HomeCubit, HomeState>(
+           listener: (BuildContext context, HomeState state) {},
+           builder: (BuildContext context, HomeState state) {
+           HomeCubit cubit = HomeCubit.get(context);
+           return Scaffold(
+               body: Column(
+                 children: [
+                    const SizedBox(height: 35,),
+                    Center(
+                       child: Image.asset("assets/Group 1000003302.png"),
+                    ),
+                    const SizedBox(height: 30,),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16, right: 16),
+                      child: Row(
+                        children: [
+                           Expanded(
                     child: SizedBox(
                       child: TextFormField(
                         readOnly: true,
@@ -69,26 +68,29 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 16,),
-                  Container(
+                           const SizedBox(width: 16,),
+                           Container(
                       height: 45,
                       width: 51,
                       decoration: BoxDecoration(color: const Color.fromRGBO(
                           26, 188, 0, 1), borderRadius: BorderRadius.circular(
                           10)),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push (
+                            context,
+                            MaterialPageRoute (
+                              builder: (context) => CartScreen(),
+                            ),
+                          );
+                        },
                         child: const Icon(
                           Icons.shopping_cart_outlined, color: Colors.white,),))
                 ],
               ),
             ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                    children: <Widget>[
-                      const SizedBox(height: 16),
-                      Padding(
+                    const SizedBox(height: 16),
+                    Padding(
                         padding: const EdgeInsets.only(left: 17),
                         child: Row(
                           children: [
@@ -106,7 +108,7 @@ class HomeScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
-                                  child: Text("All", style: TextStyle(
+                                  child: Text("All", style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,
                                       color: cubit.firstTextColor()))),
                             ),
                             const SizedBox(width: 12,),
@@ -128,7 +130,7 @@ class HomeScreen extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         left: 7, right: 7),
                                     child: Text("Plants",
-                                        style: TextStyle(
+                                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,
                                             color: cubit.secondTextColor())),
                                   )),
                             ),
@@ -151,7 +153,7 @@ class HomeScreen extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         left: 7, right: 7),
                                     child: Text("Seeds",
-                                        style: TextStyle(
+                                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,
                                             color: cubit.thirdTextColor())),
                                   )),
                             ),
@@ -173,22 +175,17 @@ class HomeScreen extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 7, right: 7),
                                     child: Text("Tools",
-                                        style: TextStyle(
+                                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,
                                             color: cubit.fourthTextColor())),
                                   )),
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      cubit.Screens(context, cubit.currentIndex),
-                      // cubit.bottomScreens[cubit.currentIndex],
-                    ]
-                ),
-              ),
-            ),
+                    const SizedBox(height: 10),
+                    Expanded(child: cubit.Screens(context, cubit.currentIndex)),
           ],
         ),
       );
-    }));}
+    });}
 }

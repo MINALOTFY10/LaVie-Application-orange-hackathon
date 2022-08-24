@@ -5,15 +5,11 @@ abstract class ForumState {}
 
 class ForumInitialState extends ForumState {}
 
-// class ForumLoadingState extends ForumState {}
-//
-// class ForumSuccessState extends ForumState {}
+class ForumLoadingState extends ForumState {}
 
-// class ForumErrorState extends ForumState {
-//   final String error;
-//
-//   ForumErrorState(this.error);
-// }
+class ForumSuccessState extends ForumState {}
+
+class ForumErrorState extends ForumState {}
 
 class ForumChangePageState extends ForumState {}
 

@@ -15,7 +15,7 @@ class BlogScreen extends StatelessWidget {
 
     return BlocProvider(
 
-        create: (BuildContext context) => BlogCubit(),
+        create: (BuildContext context) => BlogCubit()..getBlogData(),
         child: BlocConsumer<BlogCubit, BlogState>(
 
             listener: (context, state) {},
@@ -50,9 +50,17 @@ class BlogScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           Expanded(
-                            child: blogBuilder(
-                                context: context, list: []),
+                            child: plantBlogBuilder(
+                                context: context, plantList: cubit.plantList,),
                           ),
+                          // Expanded(
+                          //   child: seedBlogBuilder(
+                          //     context: context, plantList: cubit.seedList,),
+                          // ),
+                          // Expanded(
+                          //   child: toolBlogBuilder(
+                          //     context: context, plantList: cubit.toolList,),
+                          // ),
                         ],
                       ),
                     ),
