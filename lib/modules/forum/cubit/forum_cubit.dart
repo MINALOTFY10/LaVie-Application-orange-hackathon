@@ -11,6 +11,7 @@ class ForumCubit extends Cubit<ForumState> {
   ForumCubit() : super(ForumInitialState());
 
   static ForumCubit get(context) => BlocProvider.of(context);
+  int currentIndex = 0;
   List<ForumModel> forumList=[];
   List<Likes> likesList=[];
   List<Comments> commentsList=[];
@@ -18,15 +19,19 @@ class ForumCubit extends Cubit<ForumState> {
   List<int> commentsNumbers=[];
   List<int> likesNumbers=[];
 
-  void getForumsData() {
+  void getForumsData(dynamic title) {
     emit(ForumLoadingState());
 
-    DioHelper.getData(
+    DioHelper.getDataByTitle(
       url: forum,
-      query: {},
+      query: {'search' : title},
     ).then((value) {
+
       // List<dynamic> list = value.data['data'];
       List<dynamic> list = value.data['data'];
+      print('**********************************');
+      print(list);
+      print('**********************************');
       List<dynamic> commentList = value.data['data'];
 
       for(int i=0;i<list.length;i++) {
@@ -34,19 +39,16 @@ class ForumCubit extends Cubit<ForumState> {
         likesList.add(Likes.fromJson(list[i]));
         commentsList.add(Comments.fromJson(list[i]));
         userList.add(User.fromJson(list[i]['user']));
-        print('====================================');
-        likesNumbers.add(list[i]['ForumLikes'].length);
 
+        likesNumbers.add(list[i]['ForumLikes'].length);
         commentsNumbers.add(list[i]['ForumComments'].length);
 
         //print(commentsNumbers);
         // likesNumbers[i]=commentList[i]['ForumComments'].length;
-
-        // print(commentList[i]['ForumLikes'].length);
-        //print(commentList[i]['ForumComments'].length);
-
-        //print(userList[i].imageUrl);
-        print('====================================');
+        print('=================================================');
+        print(commentList[i]['ForumLikes'].length);
+        print(commentList[i]['ForumComments'].length);
+        print('=================================================');
       }
       emit(ForumSuccessState());
     }).catchError((error) {
@@ -59,7 +61,23 @@ class ForumCubit extends Cubit<ForumState> {
     });
   }
 
-  int currentIndex = 0;
+  void createNewPost(String title, String description, String imageUrl) {
+    emit(ForumLoadingState());
+
+    DioHelper.postData(
+      url: createForum,
+      data: {"title": title, "description": description,"imageUrl": imageUrl},
+    ).then((value) {
+
+      emit(ForumSuccessState());
+    }).catchError((error) {
+      //print(message);
+      print(error.toString());
+
+      //SnackbarMessage(context, "${error.response.data['message']}",false);
+      emit(ForumErrorState());
+    });
+  }
 
 
   Widget Screens (context,int index) {

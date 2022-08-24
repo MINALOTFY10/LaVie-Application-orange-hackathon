@@ -9,6 +9,7 @@ import 'package:planetapp/shared/blocConsumer.dart';
 import 'package:planetapp/shared/constant.dart';
 import 'package:planetapp/shared/network/local/cache_helper.dart';
 import 'package:planetapp/shared/network/remote/dio_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'layout/cubit/cubit.dart';
 import 'layout/cubit/states.dart';
 import 'layout/laVieApp/laVie_layout.dart';
@@ -20,25 +21,35 @@ import 'modules/forum/forum_screen.dart';
 import 'modules/home/cubit/home_cubit.dart';
 import 'modules/home/ex_home_screen.dart';
 
-
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
   Bloc.observer = MyBlocObserver();
-
-
-  Widget widget;
-
-
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
-  // token = CacheHelper.getData(key: 'token');
-  runApp(const MyApp());
+
+  final Widget widget;
+
+  print('=====================================================================');
+  print(token);
+  print('=====================================================================');
+  final prefs = await SharedPreferences.getInstance();
+
+  if(prefs.getString('Token') != null){
+    token = prefs.getString('Token')!;
+    print(token);
+    widget = AppLayout();
+  }else{
+    widget =LoginScreen();
+  }
+  runApp(MyApp(startWidget: widget,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  var startWidget;
+
+   MyApp({this.startWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +60,10 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (BuildContext context) => AppCubit()
-              ..createDatabase()
+              ..createDatabase()..getUserData()
           ),
           BlocProvider(
-            create: (BuildContext context) => ForumCubit()
+            create: (BuildContext context) => ForumCubit()..getForumsData("test"),
           ),
           BlocProvider(
               create: (BuildContext context) => HomeCubit()..getProductData()..getPlantData()..getSeedData()..getToolData(),
@@ -70,7 +81,7 @@ class MyApp extends StatelessWidget {
                   scaffoldBackgroundColor: Colors.white,
                 ),
                 debugShowCheckedModeBanner: false,
-                home: AppLayout(),
+                 home: startWidget,
               );
             }));
   }

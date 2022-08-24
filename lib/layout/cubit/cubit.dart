@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planetapp/layout/cubit/states.dart';
+import 'package:planetapp/modules/forum/forum_screen.dart';
+import 'package:planetapp/modules/notification/notification_screen.dart';
 import 'package:planetapp/modules/qrScanner/qr_scanner.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../models/Cart_Model.dart';
 import '../../models/product_model.dart';
@@ -12,6 +15,7 @@ import '../../modules/home/home_screen.dart';
 import '../../modules/profile/profile_screen.dart';
 import '../../modules/splashScreen.dart';
 import '../../shared/components.dart';
+import '../../shared/constant.dart';
 
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitialState());
@@ -21,10 +25,10 @@ class AppCubit extends Cubit<AppState> {
   int currentIndex = 0;
 
   List<Widget> bottomScreens = [
-    BlogScreen(),
+    ForumScreen(),
     QrScanner(),
     const HomeScreen(),
-    BlogScreen(),
+    NotificationScreen(),
     ProfileScreen(),
   ];
 
@@ -246,5 +250,13 @@ class AppCubit extends Cubit<AppState> {
       getDataFromDatabase(database);
       emit(AppDeleteDatabaseState());
     });
+  }
+
+  Future<void> getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    firstName=prefs.getString('firstName')!;
+    lastName=prefs.getString('lastName')!;
+    imageUrl=prefs.getString('imageUrl')!;
+    print(imageUrl);
   }
 }

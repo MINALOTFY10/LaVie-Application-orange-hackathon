@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planetapp/modules/cart/cart_screen.dart';
+import 'package:planetapp/modules/search/search_screen.dart';
 
 import '../Login/login_screen.dart';
 import 'cubit/home_cubit.dart';
@@ -35,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
+                                  builder: (context) => SearchScreen()));
                         },
                         style: const TextStyle(fontSize: 18.0),
                         decoration: InputDecoration(

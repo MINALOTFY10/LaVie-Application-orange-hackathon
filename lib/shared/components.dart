@@ -308,143 +308,7 @@ Widget loginScreenWidget(loginKey,
 }
 
 
-Widget plantBlogBuilder({required List<PlantModel> plantList,context}) {
-  return MediaQuery.removePadding(
-    context: context,
-    removeTop: true,
-    child: ListView.separated(
-      scrollDirection: Axis.vertical,
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) => plantItemInBlog(plantList[index],context),
-      itemCount: plantList.length,
-      separatorBuilder: (context, index) => const SizedBox(height: 16,),
-    ),
-  );
-}
 
-Widget plantItemInBlog(PlantModel model, context) {
-  return BlocProvider(
-
-      create: (BuildContext context) => BlogCubit(),
-
-  child: BlocConsumer<BlogCubit, BlogState>(
-
-      listener: (context, state) {},
-      builder: (context, state) {
-        String constImage = 'https://lavie.orangedigitalcenteregypt.com/uploads/60da9dc5-2974-45a2-bd24-7f38038d7999.jpg';
-        return InkWell(
-          onTap: (){
-            Navigator.push (
-              context,
-              MaterialPageRoute (
-                builder: (context) => SingleBlogScreen(),
-              ),
-            );
-          },
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            elevation: 2,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 2, right: 2),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Center(
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.only(left: 0,top: 13,bottom: 13,right: 8),
-                  //     child: Container(
-                  //       width: 140.0,
-                  //       height: 130.0,
-                  //       decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(
-                  //           10.0,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  ClipRRect(
-                    child: Image.network(model.imageUrl == "" ?
-                    constImage : 'https://lavie.orangedigitalcenteregypt.com${model.imageUrl}',
-                    fit: BoxFit.fill,
-                    ),
-
-                  ),
-                  const SizedBox(
-                    width: 10.0,
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 120.0,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: 10,),
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  child: const Text("2 days ago",
-                                      style: TextStyle(
-                                          color: Color.fromRGBO(26, 188, 0, 1),
-                                          fontSize: 15,fontWeight: FontWeight.w400)),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(right: 5),
-                                    child: Text(
-                                      "${model.name}",
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black,
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.visible,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(right: 8),
-                                    child: Text(
-                                      "${model.description}",
-                                      style: TextStyle(
-                                        height: 1.5,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color.fromRGBO(125, 123, 123, 0.78),),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.visible,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      }));
-}
 
 //===============================================================================================================
 
@@ -532,7 +396,10 @@ Widget itemInForum(ForumModel forumModel,int likesModel,int commentsModel,User u
                                 ),
                               ),
                               const SizedBox(height: 18,),
-                              Image.network("https://lavie.orangedigitalcenteregypt.com${forumModel.imageUrl}"),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: Center(child: Image.network("https://lavie.orangedigitalcenteregypt.com${forumModel.imageUrl}")),
+                              ),
                             ],
                           ),
                         ),

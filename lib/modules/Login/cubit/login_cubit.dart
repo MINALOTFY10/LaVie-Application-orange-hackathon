@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/login_model.dart';
+import '../../../shared/constant.dart';
 import '../../../shared/network/remote/dio_helper.dart';
 
 part 'login_state.dart';
@@ -23,12 +25,14 @@ class LoginCubit extends Cubit<LoginState> {
       url: '/api/v1/auth/signin',
       //data: {"password": "minaMINA121\$", "email": "menlotfy6@gmail.com"},
       data: {"password": password, "email": email},
-    ).then((value) {
+    ).then((value) async {
       //print(value.data);
       //print(value.data['data']['user']['email'].toString());
       print('==========================================');
       data = Data.fromJson(value.data['data']);
       userData = UserData.fromJson(value.data['data']['user']);
+
+
       print('==========================================');
 
       emit(LoginSuccessState());

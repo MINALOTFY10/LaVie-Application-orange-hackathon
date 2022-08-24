@@ -3,8 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:planetapp/layout/laVieApp/laVie_layout.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../shared/components.dart';
+import '../../shared/constant.dart';
 import '../../shared/network/local/cache_helper.dart';
 import 'cubit/login_cubit.dart';
 
@@ -12,6 +15,12 @@ class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
+
+final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email'
+    ]
+);
 
 class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
 
@@ -27,6 +36,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
   var formKey = GlobalKey<FormState>();
   late TabController _tabController;
+  GoogleSignInAccount? _currentUser;
+
 
   final List<Widget> myTabs = [
     const Tab(
@@ -57,6 +68,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(_handleTabSelection);
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+    _googleSignIn.signInSilently();
     super.initState();
   }
 
@@ -66,31 +83,29 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
+    LoginCubit cubit = LoginCubit.get(context);
     return BlocConsumer<LoginCubit, LoginState>(
-          listener: (BuildContext context, LoginState state) {
+          listener: (BuildContext context, LoginState state) async {
             if (state is LoginSuccessState) {
              SnackbarMessage(context, "Logged in Successfully",true);
-             Navigator.push (
+             final prefs = await SharedPreferences.getInstance();
+             await prefs.setString("Token", LoginCubit.get(context).data.accessToken);
+             await prefs.setString("firstName", cubit.userData.firstName);
+             await prefs.setString("lastName", cubit.userData.lastName);
+             await prefs.setString("imageUrl", cubit.userData.imageUrl);
+             print('***************************************');
+             print(prefs.getString('firstName'));
+             print('****************************************');
+            Navigator.push (
                context,
                MaterialPageRoute (
                  builder: (context) => AppLayout(),
                ),
              );
-              // CacheHelper.saveData(
-              //   key: 'token',
-              //   value: LoginCubit.get(context).data.accessToken
-              // ).then((value)
-              // {
-              //   // token = state.loginModel.data.token;
-              //   Navigator.push (
-              //     context,
-              //     MaterialPageRoute (
-              //       builder: (context) => AppLayout(),
-              //     ),
-              //   );
-              // });
           }
             if(state is LoginErrorState){
             SnackbarMessage(context, "Incorrect Email or Password",false);

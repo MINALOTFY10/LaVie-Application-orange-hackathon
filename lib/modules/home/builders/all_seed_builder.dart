@@ -138,7 +138,7 @@ Widget builtSeedItem(SeedModel model,context) {
                                           cubit.updateData(quantity: q, id: model.seedId);
 
                                           AppCubit.cartDb[index].ChangeQuantity(q);
-                                          SnackbarMessage(context, "Product Added To The Cart",true);
+                                          SnackbarMessage(context, "Added To The Cart",true);
                                           cubit.AddToTotalItem(cubit.productQuantity);
                                           cubit.AddToTotalPrice(500, cubit.productQuantity);
 
@@ -150,7 +150,7 @@ Widget builtSeedItem(SeedModel model,context) {
                                           cubit.insertToDatabase(id: model.seedId, imageUrl: model.imageUrl, name: model.name, price:500, quantity: model.counter);
 
                                           cubit.AddProductInCart(m);
-                                          SnackbarMessage(context, "Item Added",true);
+                                          SnackbarMessage(context, "Added To The Cart",true);
                                           cubit.AddToTotalItem(cubit.productQuantity);
                                           cubit.AddToTotalPrice(
                                               500 , cubit.productQuantity);

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../shared/components.dart';
+import 'blog_builder.dart';
 import 'cubit/blog_cubit.dart';
 
 class BlogScreen extends StatelessWidget {
@@ -51,16 +52,12 @@ class BlogScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: plantBlogBuilder(
-                                context: context, plantList: cubit.plantList,),
+                                    context: context, plantList: cubit.plantList,),
+                                // seedBlogBuilder(
+                                //   context: context, seedList: cubit.seedList,),
+                                // toolBlogBuilder(
+                                //   context: context, toolList: cubit.toolList,),
                           ),
-                          // Expanded(
-                          //   child: seedBlogBuilder(
-                          //     context: context, plantList: cubit.seedList,),
-                          // ),
-                          // Expanded(
-                          //   child: toolBlogBuilder(
-                          //     context: context, plantList: cubit.toolList,),
-                          // ),
                         ],
                       ),
                     ),

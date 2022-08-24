@@ -136,7 +136,7 @@ Widget builtProductItem(ProductModel model,context) {
                                           cubit.updateData(quantity: q, id: model.productId);
 
                                           AppCubit.cartDb[index].ChangeQuantity(q);
-                                          SnackbarMessage(context, "Product Added To The Cart",true);
+                                          SnackbarMessage(context, "Added To The Cart",true);
                                           cubit.AddToTotalItem(cubit.productQuantity);
                                           cubit.AddToTotalPrice(m.price, cubit.productQuantity);
 
@@ -148,7 +148,7 @@ Widget builtProductItem(ProductModel model,context) {
                                           cubit.insertToDatabase(id: model.productId, imageUrl: model.imageUrl, name: model.name, price: model.price, quantity: model.counter);
 
                                           cubit.AddProductInCart(m);
-                                          SnackbarMessage(context, "Item Added",true);
+                                          SnackbarMessage(context, "Added To The Cart",true);
                                           cubit.AddToTotalItem(cubit.productQuantity);
                                           cubit.AddToTotalPrice(
                                               m.price , cubit.productQuantity);

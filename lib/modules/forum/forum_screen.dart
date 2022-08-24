@@ -12,7 +12,7 @@ class ForumScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => ForumCubit()..getForumsData(),
+        create: (BuildContext context) => ForumCubit()..getForumsData("test"),
         child: BlocConsumer<ForumCubit, ForumState>(
             listener: (BuildContext context, ForumState state) {},
             builder: (BuildContext context, ForumState state) {
@@ -33,22 +33,18 @@ class ForumScreen extends StatelessWidget {
                     automaticallyImplyLeading: false,
                     backgroundColor: Colors.white,
                     elevation: 0,
-                    leading: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back_ios_rounded,
-                          size: 30, color: Color.fromRGBO(0, 0, 0, 1)),
-                    ),
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: const [
-                        Text(
-                          "Discussion Forums",
-                          style: TextStyle(
-                              fontSize: 22,
-                              color: Color.fromRGBO(0, 0, 0, 1),
-                              fontWeight: FontWeight.w700),
+                        Center(
+                          child: Text(
+                            "Discussion Forums",
+                            style: TextStyle(
+                                fontSize: 22,
+                                color: Color.fromRGBO(0, 0, 0, 1),
+                                fontWeight: FontWeight.w700),
+                          ),
                         ),
                         SizedBox(
                           width: 40,
@@ -65,8 +61,8 @@ class ForumScreen extends StatelessWidget {
                             Expanded(
                               child: SizedBox(
                                 child: TextFormField(
-                                  readOnly: true,
-                                  onTap: () {},
+                                  onTap: (){
+                                  },
                                   style: const TextStyle(fontSize: 18.0),
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(

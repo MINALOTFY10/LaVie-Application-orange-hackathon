@@ -8,4 +8,6 @@ const seed = '/api/v1/seeds';
 
 const tool = '/api/v1/tools';
 
-const forum = '/api/v1/forums/me';
+const forum = '/api/v1/forums';
+
+const createForum = '/api/v1/forums';

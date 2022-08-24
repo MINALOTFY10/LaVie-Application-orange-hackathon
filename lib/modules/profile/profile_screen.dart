@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../shared/constant.dart';
 import '../Login/cubit/login_cubit.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -10,10 +12,13 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginState>(
+    return BlocProvider(
+        create: (BuildContext context) => LoginCubit(),
+    child: BlocConsumer<LoginCubit, LoginState>(
         listener: (BuildContext context, LoginState state) {},
         builder: (BuildContext context, LoginState state) {
           LoginCubit cubit = LoginCubit.get(context);
+          final prefs = SharedPreferences.getInstance();
           return Scaffold(
             body: Stack(children: [
               Column(children: [
@@ -39,14 +44,13 @@ class ProfileScreen extends StatelessWidget {
                         ),
                          CircleAvatar(
                           radius: 70,
-                          backgroundImage: NetworkImage(
-                              "${cubit.userData.imageUrl}"),
+                          backgroundImage: NetworkImage(imageUrl),
                         ),
                         const SizedBox(
                           height: 15,
                         ),
                         Text(
-                          "${cubit.userData.firstName} ${cubit.userData.lastName}",
+                          "${firstName} ${lastName}",
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w800,
@@ -224,6 +228,6 @@ class ProfileScreen extends StatelessWidget {
               ),
             ]),
           );
-        });
+        }));
   }
 }
