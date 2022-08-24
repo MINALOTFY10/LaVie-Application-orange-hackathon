@@ -13,5 +13,6 @@ class ForumErrorState extends ForumState {}
 
 class ForumChangePageState extends ForumState {}
 
+class ForumChangePhotoIndex extends ForumState {}
 
-
+class ForumChangedPhotoBase64Success extends ForumState {}

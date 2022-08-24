@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:planetapp/layout/cubit/states.dart';
+import 'package:planetapp/layout/cubit/app_states.dart';
 import 'package:planetapp/modules/forum/forum_screen.dart';
 import 'package:planetapp/modules/notification/notification_screen.dart';
 import 'package:planetapp/modules/qrScanner/qr_scanner.dart';

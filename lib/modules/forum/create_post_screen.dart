@@ -16,18 +16,13 @@ class CreatePostScreen extends StatelessWidget {
   File? image;
 
   Future pickImage() async{
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(image == null) return;
     final imagePath = File(image.path);
         this.image= imagePath;
   }
 
-  String getBase64FormateFile(String path) {
-    File file = File(path);
-    List<int> fileInByte = file.readAsBytesSync();
-    String fileInBase64 = base64Encode(fileInByte);
-    return fileInBase64;
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,13 +70,19 @@ class CreatePostScreen extends StatelessWidget {
                         SizedBox(
                           height: 100,
                         ),
-                        Center(
-                            child: InkWell(
-                                onTap: (){
-                                  pickImage();
-                                  print(image.toString());
-                                  SnackbarMessage(context, "Image Is Added",true);
+                            (cubit.photoIndex==0) ?
+                                 Center(
+                                   child: InkWell(
+                              onTap: (){
+                                cubit.changePhotoIndex();
+                                pickImage();
+                                print(image.toString());
+                                String convertedImage;
+                                convertedImage = cubit.getBase64FormateFile(image.toString());
+
+                                cubit.convertedPhoto(convertedImage);
                                 },
+
                               child: Container(
                                     height: 150,
                                     width: 150,
@@ -98,12 +99,39 @@ class CreatePostScreen extends StatelessWidget {
                                       children: [
                                         SizedBox(height: 35,),
                                         Icon(Icons.add,size:35,color: Color.fromRGBO(26, 188, 0, 1),),
-                                      SizedBox(height: 20,),
-                                      Text("Add Photo",style: TextStyle(fontSize: 18,color: Color.fromRGBO(26, 188, 0, 1)),),
+                                        SizedBox(height: 20,),
+                                        Text("Add Photo",style: TextStyle(fontSize: 18,color: Color.fromRGBO(26, 188, 0, 1)),),
                                       ],
                                     ))),
                             ),
-                          ),
+                                 )
+                                : Center(
+                                  child: InkWell(
+                              onTap: (){},
+                              child: Container(
+                                    height: 150,
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 3,
+                                        color: Color.fromRGBO(26, 188, 0, 1),
+                                        style: BorderStyle.solid,
+                                      ),
+                                    ),
+                                    child: Center(child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(height: 35,),
+                                        Icon(Icons.add,size:35,color: Color.fromRGBO(26, 188, 0, 1),),
+                                        SizedBox(height: 20,),
+                                        Text("Add Photo",style: TextStyle(fontSize: 18,color: Color.fromRGBO(26, 188, 0, 1)),),
+                                      ],
+                                    ))),
+                            ),
+                                ),
+
                         SizedBox(
                           height: 30,
                         ),
@@ -188,9 +216,8 @@ class CreatePostScreen extends StatelessWidget {
                             height: 50,
                             child: ElevatedButton(
                               onPressed: () {
-                                String convertedImage;
-                                convertedImage = getBase64FormateFile(image.toString());
-                                cubit.createNewPost(titleController.text, descriptionController.text, "data:image/png;base64,${convertedImage}");
+
+                                cubit.createNewPost(titleController.text, descriptionController.text, "data:image/png;base64,${cubit.photoBase64}");
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: const Color.fromRGBO(26, 188, 0, 1),

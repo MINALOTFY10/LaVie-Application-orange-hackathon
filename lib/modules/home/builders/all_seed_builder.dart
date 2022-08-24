@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../layout/cubit/cubit.dart';
-import '../../../layout/cubit/states.dart';
+import '../../../layout/cubit/app_cubit.dart';
+import '../../../layout/cubit/app_states.dart';
 import '../../../models/seed_model.dart';
 import '../../../shared/components.dart';
 

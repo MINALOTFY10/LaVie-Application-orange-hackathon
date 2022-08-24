@@ -12,7 +12,7 @@ class ForumScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => ForumCubit()..getForumsData("test"),
+        create: (BuildContext context) => ForumCubit()..getForumsData("title"),
         child: BlocConsumer<ForumCubit, ForumState>(
             listener: (BuildContext context, ForumState state) {},
             builder: (BuildContext context, ForumState state) {

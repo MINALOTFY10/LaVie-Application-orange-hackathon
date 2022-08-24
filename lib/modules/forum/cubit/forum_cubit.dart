@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +14,18 @@ class ForumCubit extends Cubit<ForumState> {
   ForumCubit() : super(ForumInitialState());
 
   static ForumCubit get(context) => BlocProvider.of(context);
+  int photoIndex=0;
+  String? photoBase64;
+  void convertedPhoto(String photo){
+    photoBase64=photo;
+    emit(ForumChangedPhotoBase64Success());
+  }
+
+  void changePhotoIndex(){
+    photoIndex=1;
+    emit(ForumChangePhotoIndex());
+  }
+
   int currentIndex = 0;
   List<ForumModel> forumList=[];
   List<Likes> likesList=[];
@@ -66,7 +81,7 @@ class ForumCubit extends Cubit<ForumState> {
 
     DioHelper.postData(
       url: createForum,
-      data: {"title": title, "description": description,"imageUrl": imageUrl},
+      data: {"title": title, "description": description,"imageBase64": imageUrl},
     ).then((value) {
 
       emit(ForumSuccessState());
@@ -142,6 +157,14 @@ class ForumCubit extends Cubit<ForumState> {
     else{
       return Color.fromRGBO(0, 0, 0, 0.13);
     }
+  }
+
+
+  String getBase64FormateFile(String path) {
+    File file = File(path);
+    List<int> fileInByte = file.readAsBytesSync();
+    String fileInBase64 = base64Encode(fileInByte);
+    return fileInBase64;
   }
 
 }

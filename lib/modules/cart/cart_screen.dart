@@ -1,8 +1,8 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../layout/cubit/cubit.dart';
-import '../../layout/cubit/states.dart';
+import '../../layout/cubit/app_cubit.dart';
+import '../../layout/cubit/app_states.dart';
 import '../../shared/components.dart';
 import '../home/cubit/home_cubit.dart';
 import 'cart_builder.dart';
