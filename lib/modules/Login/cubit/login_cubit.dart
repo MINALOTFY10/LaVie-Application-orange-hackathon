@@ -1,5 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/login_model.dart';
@@ -26,21 +29,24 @@ class LoginCubit extends Cubit<LoginState> {
       //data: {"password": "minaMINA121\$", "email": "menlotfy6@gmail.com"},
       data: {"password": password, "email": email},
     ).then((value) async {
-      //print(value.data);
-      //print(value.data['data']['user']['email'].toString());
-      print('==========================================');
       data = Data.fromJson(value.data['data']);
       userData = UserData.fromJson(value.data['data']['user']);
 
 
-      print('==========================================');
 
+      Fluttertoast.showToast(
+          msg: "Logged in Successfully",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.orange,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
       emit(LoginSuccessState());
     }).catchError((error) {
-     //print(message);
-      print(error.toString());
 
-      //SnackbarMessage(context, "${error.response.data['message']}",false);
+      print(error.toString());
       emit(LoginErrorState(error.toString()));
     });
   }
@@ -54,11 +60,31 @@ class LoginCubit extends Cubit<LoginState> {
 
       data: { "firstName": firstName, "lastName": lastName, "email": email, "password": password},
     ).then((value) {
-      print(value.data);
+      Fluttertoast.showToast(
+          msg: "User Created Successfully",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.orange,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
       emit(LoginSuccessState());
     }).catchError((error) {
-
-      print(error.toString());
+      if(error is DioError){
+        print(error.response);
+        Fluttertoast.showToast(
+            msg: "${error.response}",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }else{
+        print(error.toString());
+      }
       emit(LoginErrorState(error.toString()));
     });
   }

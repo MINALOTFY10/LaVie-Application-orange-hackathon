@@ -36,8 +36,8 @@ void main() async {
   print('=====================================================================');
   final prefs = await SharedPreferences.getInstance();
 
-  if(prefs.getString('Token') != null){
-    token = prefs.getString('Token')!;
+  if(prefs.getString('ltoken') != null){
+    token = prefs.getString('ltoken')!;
     print(token);
     widget = AppLayout();
   }else{

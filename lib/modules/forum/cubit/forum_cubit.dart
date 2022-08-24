@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/forum_model.dart';
-import '../../../shared/components.dart';
 import '../../../shared/network/end_points.dart';
 import '../../../shared/network/remote/dio_helper.dart';
+import '../builder/forum_builder.dart';
 part 'forum_state.dart';
 
 class ForumCubit extends Cubit<ForumState> {

@@ -91,9 +91,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     return BlocConsumer<LoginCubit, LoginState>(
           listener: (BuildContext context, LoginState state) async {
             if (state is LoginSuccessState) {
-             SnackbarMessage(context, "Logged in Successfully",true);
+             //SnackbarMessage(context, "Logged in Successfully",true);
              final prefs = await SharedPreferences.getInstance();
-             await prefs.setString("Token", LoginCubit.get(context).data.accessToken);
+             await prefs.setString("ltoken", LoginCubit.get(context).data.accessToken);
              await prefs.setString("firstName", cubit.userData.firstName);
              await prefs.setString("lastName", cubit.userData.lastName);
              await prefs.setString("imageUrl", cubit.userData.imageUrl);
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
              );
           }
             if(state is LoginErrorState){
-            SnackbarMessage(context, "Incorrect Email or Password",false);
+            //SnackbarMessage(context, "Incorrect Email or Password",false);
              // print('wrong');
             }
           },
@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     ),
                     Center(
                       child: [
-                        loginScreenWidget(
+                        signUpScreenWidget(
                             formKey,
                             firstNameController,
                             lastNameController,
@@ -228,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                     ),
                                   ),
                                   child: const Text(
-                                    "Sign up",
+                                    "Login",
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight:
