@@ -6,7 +6,7 @@ This Application using flutter is concerned with providing agricultural tools fo
 ## Tools
 - Dart
 - Bloc (State Management)
-- APIs (dio)
+- APIs 
 - SQLite (Local database)
 ## Screenshots
 | | | 
