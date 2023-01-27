@@ -1,5 +1,7 @@
 
 # La Vie App
+La Vie Store is an store app built using Flutter that allows users to buy and sell plants and agricultural tools to each other and to store, as well as intract with each other by posting images of plants and like, comment to the posts. The app allows users to browse through a catalogue of plants, tools, and images, as well as purchase items. It also offers features such as user profiles, product reviews, add and remove items from their cart, even if the user closed the app thier information of their cart wil be still thier as it stored in local database. The app's backend is powered by a secure API, which ensures data safety and security. Flutter Store is a great way for users to find the perfect plants and tools for their gardens and farms.
+
 This Application using flutter is concerned with providing agricultural tools for people to buy and seal to each other and to store.
 
 
@@ -8,6 +10,10 @@ This Application using flutter is concerned with providing agricultural tools fo
 - Bloc (State Management)
 - APIs 
 - SQLite (Local database)
+
+## Video
+<video src='https://user-images.githubusercontent.com/99563220/215019137-a6a59f03-064b-4cd4-bd7f-dd66b060394e.mp4' width=180/>
+
 ## Screenshots
 | | | 
 |:-------------------------:|:-------------------------:|
