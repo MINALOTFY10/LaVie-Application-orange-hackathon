@@ -8,9 +8,6 @@ La Vie Store is a store app built using Flutter that allows users to buy and sel
 - APIs 
 - SQLite (Local database)
 
-## Video
-<video src='https://drive.google.com/file/d/1GWgtUzvUxIcRYw3ilFiEFtfc2Mav1CnU/view?usp=sharing' width=180/>
-
 ## Screenshots
 | | | 
 |:-------------------------:|:-------------------------:|
