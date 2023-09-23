@@ -31,9 +31,7 @@ void main() async {
 
   final Widget widget;
 
-  print('=====================================================================');
   print(token);
-  print('=====================================================================');
   final prefs = await SharedPreferences.getInstance();
 
   if(prefs.getString('loginToken') != null){
